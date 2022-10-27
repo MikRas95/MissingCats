@@ -18,10 +18,14 @@ class AuthAppRepository {
     fun login(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                userLiveData.postValue(currentUser)
+                userLiveData.value = currentUser
             } else {
-                errorMessageLiveData.postValue(String())
+                errorMessageLiveData.value = task.exception?.message.toString()
             }
         }
+    }
+    fun logOut(){
+        auth.signOut()
+        userLiveData.value = auth.currentUser
     }
 }

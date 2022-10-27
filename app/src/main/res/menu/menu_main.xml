@@ -3,8 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.missingcats.MainActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_signOut"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="Sign Out"
+        android:visible="false"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_signIn"
+        android:orderInCategory="100"
+        android:title="Sign In"
+        android:visible="true"
         app:showAsAction="never" />
 </menu>
