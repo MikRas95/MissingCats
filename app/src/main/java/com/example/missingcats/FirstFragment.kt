@@ -13,9 +13,7 @@ import com.example.missingcats.databinding.FragmentFirstBinding
 import com.example.missingcats.models.CatViewModel
 import com.example.missingcats.models.MyAdapter
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
+
 class FirstFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
@@ -46,7 +44,7 @@ class FirstFragment : Fragment() {
             if (cats != null) {
                 val adapter = MyAdapter(cats) { position ->
                     val action =
-                        FirstFragmentDirections.actionFirstFragmentToSecondFragment(position)
+                        FirstFragmentDirections.actionFirstFragmentToDetailsFragment(position)
                     findNavController().navigate(action /*R.id.action_FirstFragment_to_SecondFragment*/)
                 }
                 // binding.recyclerView.layoutManager = LinearLayoutManager(activity)
