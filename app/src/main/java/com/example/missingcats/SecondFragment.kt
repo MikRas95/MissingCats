@@ -8,11 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.missingcats.databinding.FragmentSecondBinding
-import com.example.missingcats.models.CatViewModel
 import com.example.missingcats.models.UserViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -41,14 +37,16 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val currentUser = userViewModel.mutableLiveData.value
+        val currentUser = userViewModel.userLiveData.value
         if (currentUser != null) {
             //binding.emailInputField.setText(currentUser.email) // half automatic login
             // current user exists: No need to login again
             findNavController().popBackStack()
         }
-
-        binding.messageView.text = "Current user ${currentUser?.email}"
+        userViewModel.errorMessageLiveData.observe(viewLifecycleOwner) { m ->
+            binding.messageView.text = m
+        }
+        //binding.messageView.text = "Current user ${currentUser?.email}"
         binding.signIn.setOnClickListener {
             val email = binding.emailInputField.text.toString().trim()
             val password = binding.passwordInputField.text.toString().trim()
@@ -60,8 +58,22 @@ class SecondFragment : Fragment() {
                 binding.passwordInputField.error = "No password"
                 return@setOnClickListener
             }
-            userViewModel.login(email,password)
-
+            userViewModel.login(email, password)
+            findNavController().popBackStack()
+        }
+        binding.buttonCreateUser.setOnClickListener {
+            val email = binding.emailInputField.text.toString().trim()
+            val password = binding.passwordInputField.text.toString().trim()
+            if (email.isEmpty()) {
+                binding.emailInputField.error = "No email"
+                return@setOnClickListener
+            }
+            if (password.isEmpty()) {
+                binding.passwordInputField.error = "No password"
+                return@setOnClickListener
+            }
+            userViewModel.signUp(email, password)
+            findNavController().popBackStack()
         }
     }
 

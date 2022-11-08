@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_newCatFragment"
+            app:destination="@id/newCatFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -43,4 +46,9 @@
             android:name="position"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/newCatFragment"
+        android:name="com.example.missingcats.NewCatFragment"
+        android:label="fragment_new_cat"
+        tools:layout="@layout/fragment_new_cat" />
 </navigation>

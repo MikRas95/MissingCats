@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.missingcats.databinding.FragmentFirstBinding
 import com.example.missingcats.models.CatViewModel
 import com.example.missingcats.models.MyAdapter
+import com.example.missingcats.models.UserViewModel
 
 
 class FirstFragment : Fragment() {
@@ -23,6 +24,7 @@ class FirstFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val catViewModel: CatViewModel by activityViewModels()
+    private val userViewModel: UserViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,15 +63,28 @@ class FirstFragment : Fragment() {
             }
         }
 
-        catViewModel.errorMessageLiveData.observe(viewLifecycleOwner) { errorMessage ->
-            binding.textviewMessage.text = errorMessage
-        }
+        //TODO fab skifter ikke
+        binding.fab.setOnClickListener { _ ->
+            userViewModel.userLiveData.observe(viewLifecycleOwner) { user ->
+                if (user != null) {
+                    findNavController().navigate(R.id.newCatFragment)
+                } else {
+                    binding.fab.setOnClickListener { _ ->
+                        findNavController().navigate(R.id.SecondFragment)
+                    }
+                }
+            }
 
-        catViewModel.reload()
+            catViewModel.errorMessageLiveData.observe(viewLifecycleOwner) { errorMessage ->
+                binding.textviewMessage.text = errorMessage
+            }
 
-        binding.swiperefresh.setOnRefreshListener {
             catViewModel.reload()
-            binding.swiperefresh.isRefreshing = false
+
+            binding.swiperefresh.setOnRefreshListener {
+                catViewModel.reload()
+                binding.swiperefresh.isRefreshing = false
+            }
         }
     }
 

@@ -14,7 +14,7 @@ import com.example.missingcats.models.CatViewModel
 import com.example.missingcats.models.UserViewModel
 
 
-class DetailsFragment : Fragment() {
+class NewCatFragment : Fragment() {
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
     private val catViewModel: CatViewModel by activityViewModels()
