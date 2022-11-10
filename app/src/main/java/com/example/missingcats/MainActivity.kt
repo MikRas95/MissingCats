@@ -50,8 +50,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
-        val currentUser = userViewModel.userLiveData.observe(this) { user ->
-            if (user != null) {
+        userViewModel.userLiveData.observe(this) {
+            if (it != null) {
                 menu.findItem(R.id.action_signIn).isVisible = false
                 menu.findItem(R.id.action_signOut).isVisible = true
             } else {

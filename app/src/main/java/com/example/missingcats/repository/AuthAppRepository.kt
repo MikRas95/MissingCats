@@ -7,18 +7,17 @@ import com.google.firebase.ktx.Firebase
 
 class AuthAppRepository {
     private var auth = Firebase.auth
-    val userLiveData: MutableLiveData<FirebaseUser> = MutableLiveData<FirebaseUser>()
+    val userLiveData: MutableLiveData<FirebaseUser?> = MutableLiveData<FirebaseUser?>()
     val errorMessageLiveData:MutableLiveData<String> = MutableLiveData()
-    val currentUser = auth.currentUser
 
     init {
-
+        userLiveData.value = auth.currentUser
     }
 
     fun login(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                userLiveData.value = currentUser
+                userLiveData.value = auth.currentUser
             } else {
                 errorMessageLiveData.value = task.exception?.message.toString()
             }
@@ -33,7 +32,7 @@ class AuthAppRepository {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 //messageView.text = "User created. Now please login"
-                userLiveData.value = currentUser
+                userLiveData.value = auth.currentUser
                 // Alternative: goto next fragment (no need to login after register)
             } else {
                 errorMessageLiveData.value = task.exception?.message

@@ -13,6 +13,8 @@ import com.example.missingcats.databinding.FragmentFirstBinding
 import com.example.missingcats.models.CatViewModel
 import com.example.missingcats.models.MyAdapter
 import com.example.missingcats.models.UserViewModel
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 
 class FirstFragment : Fragment() {
@@ -63,30 +65,27 @@ class FirstFragment : Fragment() {
             }
         }
 
-        //TODO fab skifter ikke
+        //TODO
         binding.fab.setOnClickListener { _ ->
-            userViewModel.userLiveData.observe(viewLifecycleOwner) { user ->
-                if (user != null) {
-                    findNavController().navigate(R.id.newCatFragment)
-                } else {
-                    binding.fab.setOnClickListener { _ ->
-                        findNavController().navigate(R.id.SecondFragment)
-                    }
-                }
-            }
-
-            catViewModel.errorMessageLiveData.observe(viewLifecycleOwner) { errorMessage ->
-                binding.textviewMessage.text = errorMessage
-            }
-
-            catViewModel.reload()
-
-            binding.swiperefresh.setOnRefreshListener {
-                catViewModel.reload()
-                binding.swiperefresh.isRefreshing = false
+            if (userViewModel.userLiveData.value != null) {
+                findNavController().navigate(R.id.action_FirstFragment_to_newCatFragment)
+            } else {
+                findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
             }
         }
+
+        catViewModel.errorMessageLiveData.observe(viewLifecycleOwner) { errorMessage ->
+            binding.textviewMessage.text = errorMessage
+        }
+
+        catViewModel.reload()
+
+        binding.swiperefresh.setOnRefreshListener {
+            catViewModel.reload()
+            binding.swiperefresh.isRefreshing = false
+        }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

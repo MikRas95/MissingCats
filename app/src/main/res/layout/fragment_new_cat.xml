@@ -4,36 +4,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".DetailsFragment">
+    tools:context=".NewCatFragment">
 
     <TextView
-        android:id="@+id/textview_message"
+        android:id="@+id/editText_userId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/editText_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="description"
+        android:inputType="text" />
+    <EditText
+        android:id="@+id/editText_place"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="place"
+        android:inputType="text" />
+    <EditText
+        android:id="@+id/editText_reward"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="reward"
+        android:inputType="number" />
+    <EditText
+        android:id="@+id/editText_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="name"
+        android:inputType="text" />
+    <Button
+        android:id="@+id/createButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:id="@+id/textview_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="Create"/>
 
-    <TextView
-        android:id="@+id/textview_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/textview_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/textview_reward"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:id="@+id/textview_place"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:id="@+id/textview_userId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+
+
 
 </LinearLayout>

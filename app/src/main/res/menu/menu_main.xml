@@ -6,12 +6,10 @@
         android:id="@+id/action_signOut"
         android:orderInCategory="100"
         android:title="Sign Out"
-        android:visible="false"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_signIn"
         android:orderInCategory="100"
         android:title="Sign In"
-        android:visible="true"
         app:showAsAction="never" />
 </menu>

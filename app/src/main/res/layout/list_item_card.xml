@@ -22,6 +22,7 @@
         <!-- NOT android:layout_height="match_parent" -->
 
         <TextView
+            android:id="@+id/textView_cardName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Card"
@@ -33,6 +34,12 @@
 
         <TextView
             android:id="@+id/textview_list_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Some text"
+            android:textStyle="italic" />
+        <TextView
+            android:id="@+id/textview_list_item_Date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Some text"
