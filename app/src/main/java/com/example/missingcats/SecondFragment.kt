@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.missingcats.databinding.FragmentSecondBinding
 import com.example.missingcats.models.UserViewModel
+import com.google.android.material.snackbar.Snackbar
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -41,7 +42,7 @@ class SecondFragment : Fragment() {
             // current user exists: No need to login again
             findNavController().popBackStack()
         }
-        userViewModel.errorMessageLiveData.observe(viewLifecycleOwner) { m ->
+        val errorData = userViewModel.errorMessageLiveData.observe(viewLifecycleOwner) { m ->
             binding.messageView.text = m
         }
         //binding.messageView.text = "Current user ${currentUser?.email}"
@@ -57,7 +58,13 @@ class SecondFragment : Fragment() {
                 return@setOnClickListener
             }
             userViewModel.login(email, password)
-            findNavController().popBackStack()
+            //TODO Gør sådan at kan ikke skifter væk fra login, hvis man skriver forkert
+            if(errorData.toString() != ""){
+                val snack = Snackbar.make(it, "Login successful", Snackbar.LENGTH_LONG)
+                snack.show()
+                findNavController().popBackStack()
+            }
+
         }
         binding.buttonCreateUser.setOnClickListener {
             val email = binding.emailInputField.text.toString().trim()
@@ -71,6 +78,9 @@ class SecondFragment : Fragment() {
                 return@setOnClickListener
             }
             userViewModel.signUp(email, password)
+            //TODO gør så der kommer en god besked når man har oprettet bruger
+            val snack = Snackbar.make(it, "User Created", Snackbar.LENGTH_LONG)
+            snack.show()
             findNavController().popBackStack()
         }
     }

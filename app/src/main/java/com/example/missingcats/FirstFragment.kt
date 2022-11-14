@@ -65,8 +65,7 @@ class FirstFragment : Fragment() {
             }
         }
 
-        //TODO
-        binding.fab.setOnClickListener { _ ->
+        binding.fab.setOnClickListener {
             if (userViewModel.userLiveData.value != null) {
                 findNavController().navigate(R.id.action_FirstFragment_to_newCatFragment)
             } else {
@@ -83,6 +82,18 @@ class FirstFragment : Fragment() {
         binding.swiperefresh.setOnRefreshListener {
             catViewModel.reload()
             binding.swiperefresh.isRefreshing = false
+        }
+
+        binding.buttonSort.setOnClickListener{
+            when (binding.spinnerSorting.selectedItemPosition){
+                0 -> catViewModel.sortByReward()
+                1 -> catViewModel.sortByRewardDescending()
+            }
+        }
+
+        binding.buttonFilter.setOnClickListener{
+            val name = binding.editTextFilter.text.toString().trim()
+            catViewModel.filterByName(name)
         }
     }
 

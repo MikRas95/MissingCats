@@ -10,6 +10,6 @@ data class Cat(val id: Int,
                val pictureUrl: String){
 
     override fun toString(): String {
-        return "Name $name, Description $description, place $place, reward $reward"
+        return "Name: $name, Description: $description, Place: $place, Reward: $reward kr, Date:"
     }
 }
