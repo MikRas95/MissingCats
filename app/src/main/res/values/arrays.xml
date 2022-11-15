@@ -3,5 +3,6 @@
     <string-array name="sortings">
         <item>Price ascending</item>
         <item>Price descending</item>
+        <item>Name</item>
     </string-array>
 </resources>

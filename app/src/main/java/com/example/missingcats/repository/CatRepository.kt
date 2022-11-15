@@ -15,6 +15,7 @@ class CatRepository {
     val catsLiveData: MutableLiveData<List<Cat>> = MutableLiveData<List<Cat>>()
     val errorMessageLiveData: MutableLiveData<String> = MutableLiveData()
     val updateMessageLiveData: MutableLiveData<String> = MutableLiveData()
+    val catList: MutableLiveData<List<Cat>> = MutableLiveData<List<Cat>>()
 
     init {
         val build: Retrofit = Retrofit.Builder()
@@ -29,6 +30,7 @@ class CatRepository {
                     //Log.d("APPLE", response.body().toString())
                     val b: List<Cat>? = response.body()
                     catsLiveData.postValue(b!!)
+                    catList.postValue(b!!)
                     errorMessageLiveData.postValue("")
                 } else {
                     val message = response.code().toString() + " " + response.message()
@@ -110,11 +112,15 @@ class CatRepository {
     fun sortByRewardDescending(){
         catsLiveData.value = catsLiveData.value?.sortedByDescending { it.reward }
     }
+    fun sortByName(){
+        catsLiveData.value = catsLiveData.value?.sortedBy { it.name.lowercase() }
+    }
     fun filterByName(name: String){
         if (name.isBlank()){
             getPosts()
         } else{
-            catsLiveData.value = catsLiveData.value?.filter { cat -> cat.name.contains(name) }
+            catsLiveData.value = catList.value
+            catsLiveData.value = catsLiveData.value?.filter { cat -> cat.name.startsWith(name, ignoreCase = true) }
         }
     }
 }

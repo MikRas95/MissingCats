@@ -88,6 +88,7 @@ class FirstFragment : Fragment() {
             when (binding.spinnerSorting.selectedItemPosition){
                 0 -> catViewModel.sortByReward()
                 1 -> catViewModel.sortByRewardDescending()
+                2 -> catViewModel.sortByName()
             }
         }
 

@@ -58,12 +58,16 @@ class SecondFragment : Fragment() {
                 return@setOnClickListener
             }
             userViewModel.login(email, password)
-            //TODO Gør sådan at kan ikke skifter væk fra login, hvis man skriver forkert
-            if(errorData.toString() != ""){
-                val snack = Snackbar.make(it, "Login successful", Snackbar.LENGTH_LONG)
-                snack.show()
-                findNavController().popBackStack()
+
+            userViewModel.userLiveData.observe(viewLifecycleOwner){ user ->
+                if(user != null){
+                    val snack = Snackbar.make(it, "Login successful", Snackbar.LENGTH_LONG)
+                    snack.show()
+                    findNavController().popBackStack()
+                }
             }
+
+
 
         }
         binding.buttonCreateUser.setOnClickListener {
@@ -78,10 +82,14 @@ class SecondFragment : Fragment() {
                 return@setOnClickListener
             }
             userViewModel.signUp(email, password)
-            //TODO gør så der kommer en god besked når man har oprettet bruger
-            val snack = Snackbar.make(it, "User Created", Snackbar.LENGTH_LONG)
-            snack.show()
-            findNavController().popBackStack()
+
+            userViewModel.userLiveData.observe(viewLifecycleOwner){ user ->
+                if(user != null){
+                    val snack = Snackbar.make(it, "User Created & logged in", Snackbar.LENGTH_LONG)
+                    snack.show()
+                    findNavController().popBackStack()
+                }
+            }
         }
     }
 

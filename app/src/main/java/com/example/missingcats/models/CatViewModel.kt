@@ -38,6 +38,9 @@ class CatViewModel : ViewModel() {
     fun sortByRewardDescending(){
         repository.sortByRewardDescending()
     }
+    fun sortByName(){
+        repository.sortByName()
+    }
     fun filterByName(name: String){
         repository.filterByName(name)
     }
